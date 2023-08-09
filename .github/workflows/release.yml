@@ -1,0 +1,23 @@
+name: "release"
+on:
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+jobs:
+  luarocks-upload:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: LuaRocks Upload
+        uses: nvim-neorocks/luarocks-tag-release@v5
+        env:
+          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
+        with:
+          detailed_description: |
+            If you've ever tried using the "." command after a plugin map,
+            you were likely disappointed to discover it only repeated the
+            last native command inside that map, rather than the map as a whole.
+            That disappointment ends today. Repeat.vim remaps "." in a way that
+            plugins can tap into it.
+          license: "VIM"
